@@ -55,3 +55,67 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 9.  Replace `<app-root></app-root>` with `<ajs-root></ajs-root>` in your `index.html`.
 10. Run `ng serve --open`, you should see the same page of a newly generated Angular CLI project. It's the original `app-root` component, wrapped inside the `<ajs-root>` AngularJS component. This means you have successfully booted your hybrid app.
 
+## Step 2: Implement a simple todo app in AngularJS
+
+> **Tip:**
+> Use different prefixes to differentiate the AngularJS modules from the Angular modules, i.e. `ajs` for AngularJS modules and `ng` for Angular modules.
+
+#### Preparation
+
+- As a requirement for the upgrade you must use _component directives_ as the main primitive for building your UI, avoid lower-level features like `ng-controller`, `ng-include`, and scope inheritance.
+- To be Angular compatible, an AngularJS _component directive_ must configure these attributes:
+  - `restrict: 'E'` - components are usually used as elements.
+  - `scope: {}` - an isolated scope.
+  - `bindToController: {}` - component inputs and outputs should be bound to the controller instead of using `$scope`.
+  - `controller` and `controllerAs` - components have their own controllers.
+  - `template` or `templateUrl` - components have their own templates.
+- Or better yet, use the [component API](https://docs.angularjs.org/api/ng/type/angular.Module#component) introduced in AngularJS 1.5 to reduce boilerplate code.
+
+1.  Declare a _Todo_ interface, inside the `app` folder since will be using it in both AngularJS and Angular modules:
+    ```typescript
+    export interface Todo {
+      id: number;
+      label: string;
+      completed: boolean;
+    }
+    ```
+2.  Create a folder for the AngularJS _Todo_ module named **ajs-todos** inside the root AngularJS folder.
+3.  Declare the `todos` AngularJS module.
+4.  Add your todo list app implementation.
+    1.  Follow the [AngularJS Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
+    2.  Make use of _one way data flow_ using _expression bindings_ (`&`) and _one way bindings_ (`<`)
+    3.  Treat `todos` component as a stateful component. Use it to maintain a unique reference of all the todos being displayed and implement `onAdd`, `onComplete` and `onDelete` methods.
+    4.  `todo-form` will receive the `onAdd: '&'` callback. Use it to add new todos.
+    5.  `todo-list` will receive a `todos` list as `todos: '<'` and the `onComplete` and `onDelete` callbacks.
+    6.  `todo-item` will receive a single todo as `todo: '<'` and the `onComplete` and `onDelete` callbacks.
+    7.  Use a service named `TodoService` to retrieve an initial list of todos.
+    8.  It should look something like this:
+
+        ```
+        ┌──────────────────────────────────────────────────────────┐
+        │  <todos></todos>                                         │
+        │                                                          │
+        │  ┌────────────────────────────────────────────────────┐  │
+        │  │  <todo-form></todo-form>                           │  │
+        │  └────────────────────────────────────────────────────┘  │
+        │                                                          │
+        │  ┌────────────────────────────────────────────────────┐  │
+        │  │  <todo-list><todo-list>                            │  │
+        │  │                                                    │  │
+        │  │  ┌──────────────────────────────────────────────┐  │  │
+        │  │  │  <todo-item></todo-item>                     │  │  │
+        │  │  └──────────────────────────────────────────────┘  │  │
+        │  │                        .                           │  │
+        │  │                        .                           │  │
+        │  │                        .                           │  │
+        │  │  ┌──────────────────────────────────────────────┐  │  │
+        │  │  │  <todo-item></todo-item>                     │  │  │
+        │  │  └──────────────────────────────────────────────┘  │  │
+        │  │                                                    │  │
+        │  └────────────────────────────────────────────────────┘  │
+        └──────────────────────────────────────────────────────────┘
+        ```
+
+5.  Include the AngularJS `todo` module in the root AngularJS module `ajsApp`.
+6.  Run the app, everything should work fine.
+
