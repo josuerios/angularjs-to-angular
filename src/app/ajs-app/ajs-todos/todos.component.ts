@@ -35,8 +35,12 @@ class TodosController implements ng.IComponentController {
 
 export const todosComponent: ng.IComponentOptions = {
   controller: TodosController,
+  bindings: {
+    title : '<'
+  },
   template: `
   <div>
+    <h1>{{$ctrl.title}}</h1>
     <todo-form on-add="$ctrl.addTodo($event);"></todo-form>
     <todo-list todos="$ctrl.todos" on-complete="$ctrl.onComplete($event);"
       on-delete="$ctrl.onDelete($event);"></todo-list>

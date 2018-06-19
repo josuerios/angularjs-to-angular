@@ -4,10 +4,11 @@ import { Inject, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { UpgradeModule } from '@angular/upgrade/static';
 import { ajsAppModule } from './ajs-app/ajs-app.module';
+import { NgTodosModule } from './ng-todos/ng-todos.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, UpgradeModule],
+  imports: [BrowserModule, UpgradeModule, NgTodosModule],
   providers: [],
   bootstrap: [],
   entryComponents: [AppComponent],
