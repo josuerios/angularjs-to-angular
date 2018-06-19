@@ -160,3 +160,32 @@ Let's make use of the title defined in `app` component and pass it to the `todos
     1.  Add an input binding for title field `@Input() title`.
 3.  Bind the app.component title value to the todos component `<todos [title]=title></todos>`.
 4.  You should see the title defined in `app.component`.
+
+## Step 4: Migrate todo-item component to Angular
+
+1.  Create a component inside the Angular todo feature folder:
+
+    ```
+    $ ng generate component ng-todos/todo-item --export=true
+    ```
+
+2.  Add `TodoItemComponent` to the `entryComponent` array declaration in `NgTodosModule`.
+3.  Migrate the component code:
+    1.  Translate the _one way bindings_ (`<`) and _expression bindings_ (`&`) to `@Input()` and `@Output` field declarations.
+    2.  Translate all the AngularJS template syntax to Angular syntax:
+        1.  `ng-class => [ngClass]`
+        2.  `ng-click="$ctrl.onComplete({ $event: {todo: $ctrl.todo} })" => (click)="onComplete.emit({todo: todo})`
+    3.  Move the styles declarations to the component specific stylesheet if applies.
+4.  In the AngularJS `todos` module replace the `todoItem` declaration with the following code:
+
+    ```typescript
+    ...
+    .directive('todoItem', downgradeComponent({ component: TodoItemComponent }))
+    ...
+    ```
+
+5.  Update the `todo-list` template with the Angular binding syntax.
+    - `todo="todo" => [todo]="todo"`
+    - `on-complete="$ctrl.onComplete({$event:$event}) => (on-complete)="$ctrl.onComplete({$event:$event})`
+6.  Delete all AngularJS unused code.
+7.  Run the application. If everything works. Congrats! You already know the basic steps of how to upgrade an AngularJS app to Angular!
