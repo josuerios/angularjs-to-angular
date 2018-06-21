@@ -119,3 +119,44 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 5.  Include the AngularJS `todo` module in the root AngularJS module `ajsApp`.
 6.  Run the app, everything should work fine.
 
+## Step 3: Run the *todo* AngularJS app inside Angular
+
+1.  Generate an Angular module for your soon to be updated todo app, import it in `app.module`:
+
+    ```bash
+    $ ng generate module ng-todos --module=app
+    ```
+
+2.  Generate a directive inside the module and export it:
+
+    ```
+    $ ng generate directive ng-todos/todos-wrapper --export=true --module=ng-todos
+    ```
+    
+3.  In `todos-wrapper.directive`:
+    - Change the `selector` field from the `@Directive` annotation to `todos`.
+    - Make `TodosWrapperDirective` extends from UpgradeComponent.
+    - Implement the following constructor:
+
+      ```typescript
+      constructor(@Inject(ElementRef) elementRef: ElementRef, @Inject(Injector) injector: Injector) {
+        super('todos', elementRef, injector);
+      }
+      ```
+
+    - Keep in mind that you'll need extra steps to enable AOT compilation, not covered in the previous one.
+
+4.  Replace the contents of `app.component.html` with `<todos></todos>`.
+5.  Run the app. You should see your todo app fully working!
+
+### Bonus Steps (optional)
+
+Let's make use of the title defined in `app` component and pass it to the `todos` component:
+
+1.  Inside your AngularJS `todos` component:
+    1.  Add a _one way binding_ for the title field `title : '<'`.
+    2.  Add the title to the template `<h1>{{$ctrl.title}}</h1>`
+2.  Inside the `todos-wrapper.directive`:
+    1.  Add an input binding for title field `@Input() title`.
+3.  Bind the app.component title value to the todos component `<todos [title]=title></todos>`.
+4.  You should see the title defined in `app.component`.
