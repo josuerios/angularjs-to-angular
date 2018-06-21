@@ -1,0 +1,9 @@
+<div class="todo-item-container">
+  <input type="checkbox" [id]="'item-completed'+ todo.id" [ngModel]="todo.completed"
+         (click)="onComplete.emit({todo: todo});"/>
+  <label [for]="'item-completed'+ todo.id" class="item-label">
+    <span  [ngClass]="{ completed: todo.completed }">{{ todo.label }}</span>
+  </label>
+  <button class="item-delete-btn" title="Delete todo" type="button"
+          (click)="onDelete.emit({todo: todo });">&#10799;</button>
+</div>
