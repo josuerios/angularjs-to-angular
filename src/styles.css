@@ -1,1 +1,90 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #444;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  padding: 16px;
+  font-size: 16px;
+  max-width: 640px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+todos {
+  display: block;
+  padding: 16px;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+todos h1 {
+  color: #369;
+  font-size: 250%;
+  text-align: center;
+}
+
+todo-form {
+  display: block;
+}
+
+todo-form input {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 40px;
+  width: 100%;
+  padding: 0 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #444;
+  font-family: Roboto, sans-serif;
+  line-height: 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+todo-list {
+  display: block;
+}
+
+todo-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+todo-item {
+  display: block;
+}
+
+todo-item .todo-item-container {
+  display: flex;
+  align-items: center;
+  border-bottom: #92bce0 1px solid;
+  height: 44px;
+}
+
+todo-item .todo-item-container .item-label {
+  flex: 1;
+  padding: 0 8px;
+}
+
+todo-item .item-delete-btn {
+  border: none;
+  margin: 0 4px;
+  cursor: pointer;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  font: inherit;
+  line-height: 2rem;
+  font-size: 1.5rem;
+  color: darkred;
+  outline: none;
+}
+
+todo-item .completed {
+  text-decoration: line-through;
+}
